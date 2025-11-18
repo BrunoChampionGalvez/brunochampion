@@ -15,7 +15,7 @@ export default function Home() {
       <main className="container mx-auto px-4 py-20">
         <div className="text-center text-slate-100">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
-            Trackea Tus Hábitos
+            Trackeame
           </h1>
           <p className="text-lg md:text-xl mb-12 text-slate-200 max-w-2xl mx-auto">
                     Una herramienta simple y poderosa para rastrear el tiempo invertido en tus hábitos.

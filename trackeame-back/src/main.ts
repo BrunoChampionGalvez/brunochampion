@@ -20,7 +20,7 @@ async function bootstrap() {
   const providers = (auth as unknown as { options?: { socialProviders?: Record<string, unknown> } })?.options?.socialProviders;
   console.log('[BetterAuth] available social providers:', providers ? Object.keys(providers) : 'none');
 
-  server.use('/api/auth', async (req: Request, res: Response, next: NextFunction) => {
+  server.use('/api/auth', { origin: process.env.FRONTEND_URL || 'http://localhost:3001', credentials: true }, async (req: Request, res: Response, next: NextFunction) => {
     console.log('[BetterAuth] handling', req.method, req.originalUrl);
     try {
       await handler(req, res);
