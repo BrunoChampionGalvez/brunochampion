@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  /* Dark Navy Theme by default as requested */
+  --background: #0B1120;
+  /* Very dark navy */
+  --foreground: #E2E8F0;
+  /* Slate 200 */
+
+  --primary: #199bdd;
+  /* Cyan 500 - Aqua */
+  --primary-foreground: #0B1120;
+
+  --secondary: #1E293B;
+  /* Slate 800 */
+  --secondary-foreground: #E2E8F0;
+
+  --accent: #38BDF8;
+  /* Sky 400 */
+  --accent-foreground: #0B1120;
+
+  --card: #111827;
+  /* Gray 900 - slightly lighter than bg */
+  --card-foreground: #E2E8F0;
+
+  --border: #1E293B;
+  --input: #1E293B;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+}
