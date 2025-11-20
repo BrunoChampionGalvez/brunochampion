@@ -66,7 +66,7 @@ export class TechnologiesService {
                 lite_mode: true,
                 return_format: 'markdown',
                 readability: true,
-                limit: 20,
+                limit: 40,
                 metadata: true,
             },
         });
