@@ -1,6 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 
-const API_URL = (process.env.NEXT_PUBLIC_TRACKEAME_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000').replace(/\/$/, '');
+const API_URL = (process.env.NEXT_PUBLIC_TRACKEAME_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000')
+  .replace(/\/$/, '')
+  .replace(/\/api$/, '');
 
 const api: AxiosInstance = axios.create({
   baseURL: API_URL,
