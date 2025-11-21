@@ -18,7 +18,8 @@ export default function LoginPage() {
         setError('');
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SOFTBOOK_API_URL || 'http://localhost:5000/api'}/auth/login`, {
+            const API_URL = (process.env.NEXT_PUBLIC_SOFTBOOK_API_URL || 'http://localhost:5000/api').replace(/\/$/, '').replace(/\/api$/, '') + '/api';
+            const res = await fetch(`${API_URL}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
