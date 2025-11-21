@@ -23,6 +23,8 @@ services:
     build:
       context: ./trackeame-front
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_TRACKEAME_API_URL: ${NEXT_PUBLIC_TRACKEAME_API_URL}
     ports:
       - "3001:3001"
     env_file:
@@ -86,6 +88,8 @@ services:
     build:
       context: ./softbook-ai-front
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_SOFTBOOK_API_URL: ${NEXT_PUBLIC_SOFTBOOK_API_URL}
     ports:
       - "3002:3002"
     env_file:

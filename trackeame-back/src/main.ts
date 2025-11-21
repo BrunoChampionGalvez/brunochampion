@@ -9,6 +9,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = Number(process.env.BACKEND_PORT ?? 4000);
   
+  console.log('FRONTEND_TRACKEAME_URL:', process.env.FRONTEND_TRACKEAME_URL);
+
   // Enable CORS
   app.enableCors({
     origin: process.env.FRONTEND_TRACKEAME_URL || 'http://localhost:3001',
