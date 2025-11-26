@@ -55,17 +55,62 @@ export default function Home() {
 
           <div className="mt-20 grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="bg-white text-slate-800 p-8 rounded-2xl shadow-2xl shadow-purple-900/20 border border-white/80">
-              <div className="text-4xl mb-4">⏱️</div>
+              <div className="flex justify-center mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-12 w-12 text-purple-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
               <h3 className="text-xl font-semibold mb-2">Trackea Tiempo</h3>
               <p className="text-slate-600">Inicia y detén temporizadores para tus hábitos con facilidad</p>
             </div>
             <div className="bg-white text-slate-800 p-8 rounded-2xl shadow-2xl shadow-purple-900/20 border border-white/80">
-              <div className="text-4xl mb-4">📊</div>
+              <div className="flex justify-center mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-12 w-12 text-purple-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                  />
+                </svg>
+              </div>
               <h3 className="text-xl font-semibold mb-2">Ver Métricas</h3>
               <p className="text-slate-600">Ve el tiempo invertido semanal y mensualmente en cada hábito</p>
             </div>
             <div className="bg-white text-slate-800 p-8 rounded-2xl shadow-2xl shadow-purple-900/20 border border-white/80">
-              <div className="text-4xl mb-4">🎯</div>
+              <div className="flex justify-center mb-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-12 w-12 text-purple-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
               <h3 className="text-xl font-semibold mb-2">Construye Hábitos</h3>
               <p className="text-slate-600">Crea y administra múltiples hábitos sin esfuerzo</p>
             </div>
