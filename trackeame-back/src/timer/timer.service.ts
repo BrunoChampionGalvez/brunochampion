@@ -45,6 +45,40 @@ export class TimerService {
     return timeEntry;
   }
 
+  async logTime(userId: string, habitId: string, durationMinutes: number) {
+    // Verify habit exists and belongs to user
+    const habit = await this.prisma.habit.findUnique({
+      where: { id: habitId },
+    });
+
+    if (!habit) {
+      throw new NotFoundException('Habit not found');
+    }
+
+    if (habit.userId !== userId) {
+      throw new ForbiddenException('You do not have access to this habit');
+    }
+
+    const durationSeconds = durationMinutes * 60;
+    const endTime = new Date();
+    const startTime = new Date(endTime.getTime() - durationSeconds * 1000);
+
+    // Create new time entry
+    const timeEntry = await this.prisma.timeEntry.create({
+      data: {
+        habitId,
+        startTime,
+        endTime,
+        duration: durationSeconds,
+      },
+      include: {
+        habit: true,
+      },
+    });
+
+    return timeEntry;
+  }
+
   async stopTimer(userId: string, timeEntryId: string) {
     // Find the time entry
     const timeEntry = await this.prisma.timeEntry.findUnique({
@@ -85,6 +119,32 @@ export class TimerService {
     });
 
     return updatedTimeEntry;
+  }
+
+  async cancelTimer(userId: string, timeEntryId: string) {
+    // Find the time entry
+    const timeEntry = await this.prisma.timeEntry.findUnique({
+      where: { id: timeEntryId },
+      include: {
+        habit: true,
+      },
+    });
+
+    if (!timeEntry) {
+      throw new NotFoundException('Time entry not found');
+    }
+
+    // Verify user owns this habit
+    if (timeEntry.habit.userId !== userId) {
+      throw new ForbiddenException('You do not have access to this time entry');
+    }
+
+    // Delete the time entry
+    await this.prisma.timeEntry.delete({
+      where: { id: timeEntryId },
+    });
+
+    return { message: 'Timer cancelled' };
   }
 
   async getActiveTimer(userId: string, habitId?: string) {

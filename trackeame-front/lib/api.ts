@@ -82,6 +82,11 @@ export interface UpdateHabitData {
   description?: string;
 }
 
+export interface LogTimeData {
+  habitId: string;
+  durationMinutes: number;
+}
+
 // Auth API
 export const authAPI = {
   signUpEmail: (data: RegisterData) => api.post('/api/auth/sign-up/email', data),
@@ -104,6 +109,8 @@ export const habitsAPI = {
 export const timerAPI = {
   start: (habitId: string) => api.post<TimeEntry>('/timer/start', { habitId }),
   stop: (timeEntryId: string) => api.post<TimeEntry>(`/timer/stop/${timeEntryId}`),
+  cancel: (timeEntryId: string) => api.delete(`/timer/cancel/${timeEntryId}`),
+  log: (data: LogTimeData) => api.post<TimeEntry>('/timer/log', data),
   getActive: (habitId?: string) => api.get<TimeEntry | null>('/timer/active', { params: { habitId } }),
   getEntries: (habitId?: string) => api.get<TimeEntry[]>('/timer/entries', { params: { habitId } }),
 };

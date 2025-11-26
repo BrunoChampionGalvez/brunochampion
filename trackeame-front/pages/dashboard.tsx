@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { habitsAPI, timerAPI, Habit, TimeEntry } from '../lib/api';
 import { buildHabitMetricSummary, HabitMetricSummary } from '../lib/metrics';
+import ManualTimeEntryModal from '../components/ManualTimeEntryModal';
 
 type HabitCardProps = {
   habit: Habit;
@@ -15,6 +16,7 @@ type HabitCardProps = {
   getElapsedTime: (startTime: string) => number;
   onStart: () => void;
   onStop: (timeEntryId: string) => void;
+  onCancel: (timeEntryId: string) => void;
   onDelete: () => void;
   onViewInsights: () => void;
 };
@@ -28,6 +30,7 @@ function HabitCard({
   getElapsedTime,
   onStart,
   onStop,
+  onCancel,
   onDelete,
   onViewInsights,
 }: HabitCardProps) {
@@ -57,7 +60,20 @@ function HabitCard({
           onClick={onDelete}
           className="text-gray-400 hover:text-red-600 transition-colors"
         >
-          🗑️
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+            />
+          </svg>
         </button>
       </div>
 
@@ -71,19 +87,75 @@ function HabitCard({
             <div className="text-3xl font-mono font-bold text-purple-600 mb-3">
               {formatTime(elapsed)}
             </div>
-            <button
-              onClick={() => onStop(activeTimer.id)}
-              className="w-full px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors"
-            >
-              ⏸ Stop Timer
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={() => onStop(activeTimer.id)}
+                className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg font-semibold hover:bg-red-600 transition-colors flex items-center justify-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                Stop Timer
+              </button>
+              <button
+                onClick={() => onCancel(activeTimer.id)}
+                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold hover:bg-gray-300 transition-colors flex items-center justify-center"
+                title="Descartar tiempo"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         ) : (
           <button
             onClick={onStart}
-            className="w-full px-4 py-2 bg-linear-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+            className="w-full px-4 py-2 bg-linear-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all flex items-center justify-center"
           >
-            ▶️ Comenzar Timer
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            Comenzar Timer
           </button>
         )}
       </div>
@@ -107,9 +179,23 @@ function HabitCard({
 
       <button
         onClick={onViewInsights}
-        className="mt-5 w-full px-4 py-2 border border-purple-200 text-purple-700 rounded-lg font-semibold hover:bg-purple-50 transition-colors"
+        className="mt-5 w-full px-4 py-2 border border-purple-200 text-purple-700 rounded-lg font-semibold hover:bg-purple-50 transition-colors flex items-center justify-center"
       >
-        📈 Ver progreso
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"
+          />
+        </svg>
+        Ver progreso
       </button>
     </div>
   );
@@ -121,6 +207,7 @@ export default function Dashboard() {
   const [habits, setHabits] = useState<Habit[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showManualEntryModal, setShowManualEntryModal] = useState(false);
   const [newHabitName, setNewHabitName] = useState('');
   const [newHabitDescription, setNewHabitDescription] = useState('');
   const [activeTimers, setActiveTimers] = useState<Record<string, TimeEntry>>({});
@@ -206,6 +293,17 @@ export default function Dashboard() {
     }
   };
 
+  const handleLogTime = async (habitId: string, durationMinutes: number) => {
+    try {
+      await timerAPI.log({ habitId, durationMinutes });
+      loadMetrics(habitId);
+      showToast('Tiempo agregado exitosamente');
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Failed to log time');
+      showToast('Error al agregar tiempo', 'error');
+    }
+  };
+
   const startTimer = async (habitId: string) => {
     try {
       const response = await timerAPI.start(habitId);
@@ -228,6 +326,23 @@ export default function Dashboard() {
     } catch (error: any) {
       setError(error.response?.data?.message || 'Failed to stop timer');
       showToast('No se pudo guardar el tiempo. Intenta nuevamente.', 'error');
+    }
+  };
+
+  const cancelTimer = async (habitId: string, timeEntryId: string) => {
+    if (!confirm('¿Estás seguro de que quieres descartar este tiempo?')) return;
+
+    try {
+      await timerAPI.cancel(timeEntryId);
+      setActiveTimers(prev => {
+        const newTimers = { ...prev };
+        delete newTimers[habitId];
+        return newTimers;
+      });
+      showToast('Tiempo descartado.');
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Failed to cancel timer');
+      showToast('No se pudo descartar el tiempo.', 'error');
     }
   };
 
@@ -322,17 +437,54 @@ export default function Dashboard() {
 
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Tus Hábitos</h2>
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="px-6 py-3 bg-linear-to-r from-purple-600 to-indigo-700 text-white rounded-lg font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
-          >
-            + Crear Hábito
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowManualEntryModal(true)}
+              className="px-6 py-3 bg-white border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 hover:shadow-sm transition-all flex items-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 mr-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              Agregar Tiempo
+            </button>
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="px-6 py-3 bg-linear-to-r from-purple-600 to-indigo-700 text-white rounded-lg font-semibold hover:shadow-lg hover:-translate-y-0.5 transition-all"
+            >
+              + Crear Hábito
+            </button>
+          </div>
         </div>
 
         {habits.length === 0 ? (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">🎯</div>
+            <div className="flex justify-center mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-24 w-24 text-purple-200"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
             <h3 className="text-xl font-semibold text-gray-700 mb-2">No hay hábitos aún</h3>
             <p className="text-gray-500 mb-6">Crea tu primer hábito para comenzar a rastrear tu tiempo.</p>
             <button
@@ -359,6 +511,7 @@ export default function Dashboard() {
                   getElapsedTime={getElapsedTime}
                   onStart={() => startTimer(habit.id)}
                   onStop={(timeEntryId) => stopTimer(habit.id, timeEntryId)}
+                  onCancel={(timeEntryId) => cancelTimer(habit.id, timeEntryId)}
                   onDelete={() => deleteHabit(habit.id)}
                   onViewInsights={() => router.push(`/habits/${habit.id}/insights`)}
                 />
@@ -427,6 +580,13 @@ export default function Dashboard() {
           </div>
         </div>
       )}
+
+      <ManualTimeEntryModal
+        isOpen={showManualEntryModal}
+        onClose={() => setShowManualEntryModal(false)}
+        habits={habits}
+        onSave={handleLogTime}
+      />
     </div>
   );
 }
